@@ -37,9 +37,9 @@ lClient* iniciaclient() {
 lDispo* insereLivro(lDispo* disp) {
     lDispo *novo;
     novo = (lDispo*)malloc(sizeof(lDispo));
-    printf("Escolha um código de registro para o livro: ");
+    printf("Escolha um cÃ³digo de registro para o livro: ");
     scanf("%d", &novo->idLivro);
-    printf("Digite o título do livro: ");
+    printf("Digite o tÃ­tulo do livro: ");
     fflush(stdin);
     gets(novo->titulo);
     printf("Digite o assunto do livro: ");
@@ -55,7 +55,7 @@ lDispo* insereLivro(lDispo* disp) {
 lClient* insereCliente(lClient* client) {
     lClient *novo;
     novo = (lClient*)malloc(sizeof(lClient));
-    printf("Escolha um código para o cliente: ");
+    printf("Escolha um cÃ³digo para o cliente: ");
     scanf("%d", &novo->idCliente);
     printf("Digite o nome do cliente: ");
     fflush(stdin);
@@ -98,13 +98,13 @@ lEmp* insereEmp(lEmp *emprestados, int idLivro, int idCliente, char titulo[], ch
 }
 
 void imprimeDispo(lDispo *aux){
-    if(aux==NULL){printf("Nenhum livro disponível\n");}
+    if(aux==NULL){printf("Nenhum livro disponÃ­vel\n");}
     else{
         printf("Livros Disponiveis:\n\n");
         while(aux!=NULL){
             printf("-----------------------------------------------------\n");
-            printf("Código: %d\n",aux->idLivro);
-            printf("Título do livro: %s\n",aux->titulo);
+            printf("CÃ³digo: %d\n",aux->idLivro);
+            printf("TÃ­tulo do livro: %s\n",aux->titulo);
             printf("Assunto: %s\n",aux->assunto);
             printf("Autor: %s\n",aux->autor);
             printf("-----------------------------------------------------\n\n");
@@ -119,28 +119,28 @@ void emprestarLivro(lDispo** disp,lClient** client,lEmp** emprestados){
     lClient *auxC=*client;
     char titulo[50],assunto[100],autor[50];
 
-    printf("Digite o código do livro a ser emprestado: ");
+    printf("Digite o cÃ³digo do livro a ser emprestado: ");
     scanf("%d", &livroBuscado);
 
     while((auxD!=NULL)&&(auxD->idLivro!=livroBuscado)){ //Procurando livro na lista de disponiveis//
         auxD=auxD->prox;
     }
 
-    if(auxD==NULL){printf("Livro não encontrado");}
+    if(auxD==NULL){printf("Livro nÃ£o encontrado");}
     else{
-        printf("Digite o código do cliente: ");
+        printf("Digite o cÃ³digo do cliente: ");
         scanf("%d", &clienteBuscado);
 
         while((auxC!=NULL) && (auxC->idCliente!=clienteBuscado)){ //Procurando cliente na lClient//
             auxC=auxC->prox;
         }
         if(auxC==NULL){
-            printf("Cliente não encontrado");
+            printf("Cliente nÃ£o encontrado");
         }
         else{
             (*disp)=removerLivro((*disp),&noRetornado,livroBuscado); //Remover livro da lDispo//
 
-            strcpy(titulo,noRetornado->titulo);     //Copiar informções do livro//
+            strcpy(titulo,noRetornado->titulo);     //Copiar informÃ§Ãµes do livro//
             strcpy(assunto,noRetornado->assunto);
             strcpy(autor,noRetornado->autor);
 
@@ -202,22 +202,22 @@ void devolverLivro(lDispo **disp,lClient **client,lEmp **emprestados){
     lClient *auxC=*client;
     lDispo *noBuscado=NULL;
     lEmp *auxE=*emprestados;
-    printf("Digite o código do livro que deseja devolver: ");
+    printf("Digite o cÃ³digo do livro que deseja devolver: ");
     scanf("%d", &livroDevolvido);
 
     while((auxE!=NULL)&&(auxE->idLivro!=livroDevolvido)){
         auxE=auxE->prox;
     }
-    if(auxE==NULL){printf("Livro não encontrado");}
+    if(auxE==NULL){printf("Livro nÃ£o encontrado");}
     else{
-        printf("Digite o código do cliente que o possui: ");
+        printf("Digite o cÃ³digo do cliente que o possui: ");
         scanf("%d", &clienteBuscado);
 
         while((auxC!=NULL) && (auxC->idCliente!=clienteBuscado)){ //Procurando cliente na lClient//
             auxC=auxC->prox;
         }
         if(auxC==NULL){
-            printf("Cliente não encontrado");
+            printf("Cliente nÃ£o encontrado");
         }
         else{
             *client=removerLclient((*client),&noBuscado,clienteBuscado,livroDevolvido); //Remover da lista de livros do cliente//
@@ -236,11 +236,11 @@ void imprimeEmprestadoCliente(lClient* aux,int idBuscado){
     lDispo *empClient;
     while(aux!=NULL){
         if(aux->idCliente==idBuscado){
-            printf("\nLivros Possuídos: \n\n");
+            printf("\nLivros PossuÃ­dos: \n\n");
             empClient=aux->emprestados;
             while(empClient!=NULL){
                 printf("-----------------------------------------------------\n");
-                printf("\tCódigo do livro: %d\n",empClient->idLivro);
+                printf("\tCÃ³digo do livro: %d\n",empClient->idLivro);
                 printf("Titulo: %s\n",empClient->titulo);
                 printf("Assunto: %s\n",empClient->assunto);
                 printf("Autor: %s\n",empClient->autor);
@@ -255,7 +255,7 @@ void imprimeEmprestadoCliente(lClient* aux,int idBuscado){
 void imprimeTodosCliente(lClient *aux){
     while(aux!=NULL){
         printf("************************************************************\n");
-        printf("Código do cliente: %d\n",aux->idCliente);
+        printf("CÃ³digo do cliente: %d\n",aux->idCliente);
         printf("Nome: %s\n",aux->nome);
         imprimeEmprestadoCliente(aux,aux->idCliente);
         printf("************************************************************\n\n");
@@ -270,9 +270,9 @@ void imprimeTodosEmprestados(lEmp *inicio){
         printf("Livros Emprestados:\n\n");
         while(aux!=NULL){
             printf("-----------------------------------------------------\n");
-            printf("Cliente responsável: %d\n",aux->idCliente);
-            printf("Código: %d\n",aux->idLivro);
-            printf("Título do livro: %s\n",aux->titulo);
+            printf("Cliente responsÃ¡vel: %d\n",aux->idCliente);
+            printf("CÃ³digo: %d\n",aux->idLivro);
+            printf("TÃ­tulo do livro: %s\n",aux->titulo);
             printf("Assunto: %s\n",aux->assunto);
             printf("Autor: %s\n\n",aux->autor);
             printf("-----------------------------------------------------\n\n");
@@ -299,13 +299,13 @@ int main() {
     printf("2: Inserir um novo cliente\n");
     printf("3: Emprestar um livro para um cliente\n");
     printf("4: Devolver um livro de um determinado cliente\n");
-    printf("5: Imprimir os livros que estão emprestados por um dado cliente\n");
+    printf("5: Imprimir os livros que estÃ£o emprestados por um dado cliente\n");
     printf("6: Imprimir a Lista de todos os clientes com os respectivos livros emprestados\n");
     printf("7: Imprimir a Lista de Todos os Livros Emprestado\n");
-    printf("8: Imprimir a lista de Livros Disponíveis da Biblioteca\n");
+    printf("8: Imprimir a lista de Livros DisponÃ­veis da Biblioteca\n");
     printf("9: Sair do Sistema\n");
     do{
-        printf("\nEscolha uma opção: ");
+        printf("\nEscolha uma opÃ§Ã£o: ");
         scanf("%d", &menu);
         printf("\n");
         switch(menu){
@@ -317,10 +317,10 @@ int main() {
                 printf("2: Inserir um novo cliente\n");
                 printf("3: Emprestar um livro para um cliente\n");
                 printf("4: Devolver um livro de um determinado cliente\n");
-                printf("5: Imprimir os livros que estão emprestados por um dado cliente\n");
+                printf("5: Imprimir os livros que estÃ£o emprestados por um dado cliente\n");
                 printf("6: Imprimir a Lista de todos os clientes com os respectivos livros emprestados\n");
                 printf("7: Imprimir a Lista de Todos os Livros Emprestado\n");
-                printf("8: Imprimir a lista de Livros Disponíveis da Biblioteca\n");
+                printf("8: Imprimir a lista de Livros DisponÃ­veis da Biblioteca\n");
                 printf("9: Sair do Sistema\n");
                 break;
             case 1:
@@ -353,7 +353,7 @@ int main() {
                 printf("\nDesligando o sistema...");
                 break;
             default:
-                printf("Comando Inválido");
+                printf("Comando InvÃ¡lido");
         }
     }while(menu!=9);
     return 0;
